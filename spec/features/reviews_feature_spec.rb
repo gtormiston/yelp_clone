@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'reviewing' do
+feature 'Reviews' do
 
   before { Restaurant.create(name: 'KFC') }
 

@@ -13,6 +13,12 @@ feature 'User can sign in and out' do
       visit '/'
       expect(page).not_to have_link('Sign Out')
     end
+
+    it 'should not see add new restaurant link' do
+      visit '/'
+      expect(page).not_to have_link 'Add a restaurant'
+    end
+
   end
 
   context 'user signed in on homepage' do
@@ -34,6 +40,11 @@ feature 'User can sign in and out' do
       visit '/'
       expect(page).not_to have_link('Sign In')
       expect(page).not_to have_link('Sign Up')
+    end
+
+    it 'should see create restaurant link' do
+      visit '/'
+      expect(page).to have_link 'Add a restaurant'
     end
   end
 
