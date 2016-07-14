@@ -80,7 +80,6 @@ feature 'Restaurants' do
   end
 
   context 'Not logged in user' do
-
     it 'cannot add a restaurant when not logged in' do
       visit '/'
       expect(page).not_to have_link 'Add a restaurant'
@@ -88,7 +87,6 @@ feature 'Restaurants' do
 
     context 'viewing restaurants' do
       let!(:kfc){ Restaurant.create(name: 'KFC')}
-
       scenario 'let a user view a restaurant' do
         visit '/'
         click_link 'KFC'
@@ -96,8 +94,6 @@ feature 'Restaurants' do
         expect(current_path).to eq "/restaurants/#{kfc.id}"
       end
     end
-
-
   end
 
 

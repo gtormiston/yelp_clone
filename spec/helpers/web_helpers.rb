@@ -1,4 +1,4 @@
-def sign_up(email = 'test@test.com', password = 'password', password_confirmation = 'password' )
+def sign_up(email = 'test@test.com', password = 'password', password_confirmation = 'password')
   visit '/'
   click_link 'Sign Up'
   fill_in 'Email', with: email
@@ -10,6 +10,9 @@ end
 def sign_in(email = 'test@test.com', password = 'password')
   visit '/'
   click_link 'Sign In'
+  fill_in 'Email', with: email
+  fill_in 'Password', with: password
+  click_button 'Sign in'
 end
 
 def add_restaurant(name = 'KFC', description = 'Super good chicken')
