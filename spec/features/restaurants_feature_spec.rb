@@ -18,7 +18,7 @@ feature 'Restaurants' do
 
     context 'restaurants have been added' do
       before do
-        Restaurant.create(name: 'KFC')
+        add_restaurant
       end
       scenario 'display restaurants' do
         visit '/'
@@ -64,8 +64,11 @@ feature 'Restaurants' do
         click_button 'Update Restaurant'
         expect(page).to have_content 'Kentucky Fried Chicken'
         expect(page).to have_content 'Deep fried goodness'
-        expect(current_path).to eq '/restaurants'
+        expect(current_path).to eq '/'
       end
+
+      scenario 'only the owner can edit the restaurant'
+
     end
 
     context 'deleting restaurants' do
@@ -76,19 +79,30 @@ feature 'Restaurants' do
         expect(page).not_to have_content('KFC')
         expect(page).to have_content('Restaurant deleted successfully')
       end
+
+      scenario 'only the owner can delete the restaurant'
+      
     end
   end
 
   context 'Not logged in user' do
+
+    before do
+      sign_up
+      add_restaurant
+      click_link 'Sign Out'
+    end
+
+
     it 'cannot add a restaurant when not logged in' do
       visit '/'
       expect(page).not_to have_link 'Add a restaurant'
     end
 
     context 'viewing restaurants' do
-      let!(:kfc){ Restaurant.create(name: 'KFC')}
+      let!(:kfc){ Restaurant.find_by(name: 'KFC')}
+
       scenario 'let a user view a restaurant' do
-        visit '/'
         click_link 'KFC'
         expect(page).to have_content 'KFC'
         expect(current_path).to eq "/restaurants/#{kfc.id}"

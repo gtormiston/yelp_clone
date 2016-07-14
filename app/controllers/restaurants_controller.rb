@@ -26,19 +26,35 @@ class RestaurantsController < ApplicationController
 
   def edit
     @restaurant = Restaurant.find(params[:id])
+    if current_user.id != @restaurant.user_id
+      flash[:notice] = 'Only the restaurant owner can edit this restaurant'
+      redirect_to '/'
+    else
+      render 'new'
+    end
   end
 
   def update
     @restaurant = Restaurant.find(params[:id])
-    @restaurant.update(restaurant_params)
-    redirect_to '/restaurants'
+    if current_user.id != @restaurant.user_id
+      flash[:notice] = 'Only the restaurant owner can edit this restaurant'
+      redirect_to '/'
+    else
+      @restaurant.update(restaurant_params)
+      redirect_to '/'
+    end
   end
 
   def destroy
     @restaurant = Restaurant.find(params[:id])
-    @restaurant.destroy
-    flash[:notice] = 'Restaurant deleted successfully'
-    redirect_to '/restaurants'
+    if current_user.id != @restaurant.user_id
+      flash[:notice] = 'Only the restaurant owner can delete this restaurant'
+      redirect_to '/'
+    else
+      @restaurant.destroy
+      flash[:notice] = 'Restaurant deleted successfully'
+      redirect_to '/'
+    end
   end
 
   private

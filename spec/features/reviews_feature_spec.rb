@@ -2,7 +2,10 @@ require 'rails_helper'
 
 feature 'Reviews' do
 
-  before { Restaurant.create(name: 'KFC') }
+  before do
+    sign_up
+    add_restaurant('KFC')
+  end
 
   scenario 'allows users to leave a review using a form' do
     visit '/restaurants'
@@ -10,10 +13,21 @@ feature 'Reviews' do
     fill_in "Thoughts", with: "so so"
     select "3", from: 'Rating'
     click_button 'Leave Review'
-
-    expect(current_path).to eq '/restaurants'
+    click_link 'KFC'
     expect(page).to have_content 'so so'
   end
+
+  scenario 'shows reviews on the homepage' do
+    visit '/'
+    click_link 'Review KFC'
+    fill_in "Thoughts", with: "awesome"
+    select "3", from: 'Rating'
+    click_button 'Leave Review'
+    expect(page).to have_content 'awesome'
+  end
+
+
+
 
 
 end
