@@ -22,3 +22,11 @@ def add_restaurant(name = 'KFC', description = 'Super good chicken')
   fill_in 'Description', with: description
   click_button 'Create Restaurant'
 end
+
+def add_review(name, thoughts, rating)
+  visit '/'
+  click_link "Review #{name}"
+  fill_in 'Thoughts', with: thoughts
+  select rating, from: 'Rating'
+  click_button 'Leave Review'
+end

@@ -67,7 +67,13 @@ feature 'Restaurants' do
         expect(current_path).to eq '/'
       end
 
-      scenario 'only the owner can edit the restaurant'
+      scenario 'only the owner can edit the restaurant' do
+        add_restaurant('McDonalds')
+        click_link 'Sign Out'
+        sign_up('usertwo@user.com')
+        expect(page).to have_content 'McDonalds'
+        expect(page).not_to have_content 'Edit McDonalds'
+      end
 
     end
 
@@ -80,8 +86,14 @@ feature 'Restaurants' do
         expect(page).to have_content('Restaurant deleted successfully')
       end
 
-      scenario 'only the owner can delete the restaurant'
-      
+      scenario 'only the owner can delete the restaurant' do
+        add_restaurant('McDonalds')
+        click_link 'Sign Out'
+        sign_up('usertwo@user.com')
+        expect(page).to have_content 'McDonalds'
+        expect(page).not_to have_content 'Delete McDonalds'
+      end
+
     end
   end
 

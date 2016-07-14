@@ -3,7 +3,7 @@
 Devise.setup do |config|
 
   config.omniauth :facebook, ENV["YELP_FACEBOOK_APP_ID"], ENV["YELP_FACEBOOK_APP_SECRET"],
-   scope: 'email'
+   scope: 'email', info_fields: 'email,name'
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
