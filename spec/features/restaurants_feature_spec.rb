@@ -50,7 +50,6 @@ feature 'Restaurants' do
         click_link 'Sign Out'
         sign_up("user2@user.com","password","password")
         expect(page).not_to have_link 'Edit KFC'
-        expect(page).not_to have_link 'Delete KFC'
       end
 
       # before {Restaurant.create name: 'KFC', description: 'Deep fried goodness'}

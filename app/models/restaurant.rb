@@ -3,4 +3,7 @@ class Restaurant < ActiveRecord::Base
   belongs_to :user, required: true
 
   validates :name, length: {minimum: 3}, uniqueness: true
+
+
+
 end
